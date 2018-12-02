@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Table from './components/Table'
@@ -53,12 +53,21 @@ class App extends Component {
     })
   }
 
+  deleteTicket = (id) => {
+    let tickets = this.state.tickets.filter(ticket => {
+      return ticket.id !== id
+    });
+    this.setState({
+      tickets: tickets
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="chat-app">
           <Navbar />
-          <Route exact path='/' render={()=> <Home tickets={this.state.tickets}/>}/>
+          <Route exact path='/' render={()=> <Home deleteTicket={this.deleteTicket} tickets={this.state.tickets}/>}/>
           <Route path='/table' component={Table} />
           <Route path='/form' render={()=> <Form addTicket={this.addTicket}/>} />
         </div>

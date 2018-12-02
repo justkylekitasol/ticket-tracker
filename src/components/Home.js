@@ -1,26 +1,31 @@
 import React from 'react'
 
-const Home = ({tickets}) => {
+const Home = ({tickets, deleteTicket}) => {
   const ticketList = tickets.length ? (
     tickets.map(ticket => {
       return (
-        <tr className="ticket" key={ticket.id}>
-          <td>{ ticket.datecomplete }</td>
-          <td>{ ticket.month }</td>
-          <td>{ ticket.week }</td>
-          <td>{ ticket.theme }</td>
-          <td>{ ticket.ticketnumber }</td>
-          <td>{ ticket.website }</td>
-          <td>10:43 PM</td>
-          <td>11:43 PM</td>
-          <td>{ ticket.status }</td>
-          <td>{ ticket.skill }</td>
-          <td>{ ticket.remarks }</td>
-        </tr>
+        <tbody>
+          <tr className="ticket" key={ticket.id}>
+            <td>{ ticket.datecomplete }</td>
+            <td>{ ticket.month }</td>
+            <td>{ ticket.week }</td>
+            <td>{ ticket.theme }</td>
+            <td>{ ticket.ticketnumber }</td>
+            <td>{ ticket.website }</td>
+            <td>10:43 PM</td>
+            <td>11:43 PM</td>
+            <td>{ ticket.status }</td>
+            <td>{ ticket.skill }</td>
+            <td>{ ticket.remarks }</td>
+            <td><button className="btn btn-danger" onClick={() => {deleteTicket(ticket.id)}}>Delete</button></td>
+          </tr>
+        </tbody>
       )
     })
   ) : (
-    <p>No Tickets</p>
+    <div className="text-center">
+      <h3>No Tickets</h3>
+    </div>
   )
   
   return(
@@ -45,9 +50,7 @@ const Home = ({tickets}) => {
               </tr>
             </thead>
   
-            <tbody>
-              { ticketList }
-            </tbody>
+            { ticketList }  
           </table>
         </div>
       </div>

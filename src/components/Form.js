@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 class Form extends Component {
   state = {
-    content: '',
     // datecomplete: this.Today(),
     // month: this.Month(),
     // week: this.Week(),
@@ -49,15 +48,22 @@ class Form extends Component {
   
   handleChange = (e) => {
     this.setState({
-      status: e.target.value,
-      website: e.target.value
+      datecomplete: this.Today(),
+      month: this.Month(),
+      week: this.Week(),
+      [e.target.id]: e.target.value
     })
   }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addTicket(this.state);
     this.setState({
-      content: ''
+      theme: '',
+      ticketnumber: '',
+      website: '',
+      remarks: '',
+      status: null,
+      skill: null
     })
     console.log(this.state);
   }
@@ -69,15 +75,15 @@ class Form extends Component {
           <div className="row text-center">
             <div className="form-group col-sm-4">
               <label htmlFor="datecomplete">Date Completed</label>
-              <input type="text" id="datecomplete" className="form-control" disabled value={this.Today()} onChange={this.handleChange}/>
+              <input type="text" id="datecomplete" className="form-control" disabled value={this.Today()}/>
             </div>
             <div className="form-group col-sm-4">
               <label htmlFor="month">Month</label>
-              <input type="text" id="month" className="form-control" disabled value={this.Month()} onChange={this.handleChange}/>
+              <input type="text" id="month" className="form-control" disabled value={this.Month()}/>
             </div>
             <div className="form-group col-sm-4">
               <label htmlFor="week">Week</label>
-              <input type="text" id="week" className="form-control" disabled value={this.Week()} onChange={this.handleChange}/>
+              <input type="text" id="week" className="form-control" disabled value={this.Week()}/>
             </div>
           </div>
           <div className="row text-center">
@@ -101,28 +107,28 @@ class Form extends Component {
             </div>
             <div className="form-group col-sm-3">
               <label htmlFor="ticketnumber">Ticket Number</label>
-              <input type="text" id="ticketnumber" className="form-control" value={this.state.ticketnumber} onChange={this.handleChange}/>
+              <input type="text" id="ticketnumber" className="form-control" value={this.state.ticketnumber} onChange={this.handleChange} required/>
             </div>
             <div className="form-group col-sm-6">
               <label htmlFor="website">Website</label>
-              <input type="text" id="website" className="form-control" value={this.state.website} onChange={this.handleChange}/>
+              <input type="text" id="website" className="form-control" value={this.state.website} onChange={this.handleChange} required/>
             </div>
           </div>
           <div className="row text-center">
             <div className="form-group col-sm-3">
               <label htmlFor="status">Status</label>
-              <select id="status" className="form-control" value={this.state.status} onChange={this.handleChange}>
+              <select id="status" className="form-control" value={this.state.status} onChange={this.handleChange} required>
                 <option disabled selected value> -- select an option -- </option>
-                <option value="complete">Complete</option>
-                <option value="returned">Returned</option>
+                <option value="Complete">Complete</option>
+                <option value="Returned">Returned</option>
               </select>
             </div>
             <div className="form-group col-sm-3">
               <label htmlFor="skill">Skill</label>
-              <select id="skill" className="form-control" value={this.state.skill} onChange={this.handleChange}>
+              <select id="skill" className="form-control" value={this.state.skill} onChange={this.handleChange} required>
                 <option disabled selected value> -- select an option -- </option>
-                <option value="migration">Migration</option>
-                <option value="regular ticket">Regular Ticket</option>
+                <option value="Migration">Migration</option>
+                <option value="Regular Ticket">Regular Ticket</option>
               </select>
             </div>
             <div className="form-group col-sm-6">
