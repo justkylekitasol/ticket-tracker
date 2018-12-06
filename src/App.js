@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import Table from './components/Table'
-import Form from './components/Form'
+import Daily from './components/Daily'
+import AddTicket from './components/AddTicket'
 import { BrowserRouter, Route} from 'react-router-dom'
 
 class App extends Component {
   state = {
+    USday: this.USday(),
+    regulartickets: 0,
+    migrations: 0,
     tickets : [
-      { id: 1, datecomplete: this.Today(), month: this.Month(), week: this.Week(), theme: 'Julia', ticketnumber: '370156', website: 'google.com', remarks: 'Edit Page', status: 'Complete', skill: 'Migration' }
+      { id: 1, datecomplete: '12/3/2018', Localday: 3, month: this.Month(), week: this.Week(), start: '01:30', end: '02:30', theme: 'Julia', ticketnumber: '370156', website: 'google.com', remarks: 'Edit Page', status: 'Complete', skill: 'Migration' }
     ]
   }
-
+  USday() {
+    let today = new Date().getUTCDate()
+    return(today);
+  }
   Today() {
-    let date = new Date().getDate(),
-    month = new Date().getMonth() + 1,
-    year = new Date().getFullYear();
-
-    return(date + '/' + month + '/' + year);
+    var today = new Date().getDate()
+    return(today);
   }
   Week() {
     // const weekNumber = new Date().getDate();
@@ -30,10 +33,8 @@ class App extends Component {
     // console.log(today, firstDayOfYear, pastDaysOfYear);
     // return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
     var date = new Date();
-    var days = ['Sunday','Monday','Tuesday','Wednesday',
-                'Thursday','Friday','Saturday'],
-        prefixes = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
-        
+    var days = ['Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday','Saturday'],
+    prefixes = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
     return prefixes[Math.floor(date.getDate() / 7)] + ' ' + days[date.getDay()];
   }
   
@@ -62,14 +63,37 @@ class App extends Component {
     })
   }
 
+  copyFunction () {
+    let body = document.body, range, sel,
+    table = document.getElementById('tableId');
+      if (document.createRange && window.getSelection) {
+        range = document.createRange();
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        try {
+          range.selectNodeContents(table);
+          sel.addRange(range);
+        } catch (e) {
+          range.selectNode(table);
+          sel.addRange(range);
+        }
+        document.execCommand("copy");
+
+      } else if (body.createTextRange) {
+        range = body.createTextRange();
+        range.moveToElementText(table);
+        range.select();
+        range.execCommand("Copy");
+      }
+  }
   render() {
     return (
       <BrowserRouter>
         <div className="chat-app">
           <Navbar />
           <Route exact path='/' render={()=> <Home deleteTicket={this.deleteTicket} tickets={this.state.tickets}/>}/>
-          <Route path='/table' component={Table} />
-          <Route path='/form' render={()=> <Form addTicket={this.addTicket}/>} />
+          <Route path='/daily-tracker' render={()=> <Daily USday={this.state.USday} deleteTicket={this.deleteTicket} tickets={this.state.tickets} copyFunction={this.copyFunction} regulartickets={this.state.regulartickets} migrations={this.state.migrations}/>} />
+          <Route path='/add-ticket' render={()=> <AddTicket addTicket={this.addTicket}/>} />
         </div>
       </BrowserRouter>
     );

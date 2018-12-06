@@ -1,6 +1,33 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #f1f1f1;
+}
+/* .table {
+  width: 85%;
+  max-width: 85%;
+} */
+.table-responsive {
+  max-height: 550px;
+  overflow-y: auto;
+}
+.container {
+  max-width: 1540px;
 }
 
+.delete-btn, .edit-btn {
+  visibility: hidden;
+}
 
+.ticket:hover .delete-btn {
+  visibility: visible;
+} 
+
+.ticket:hover .edit-btn {
+  visibility: visible;
+}
+
+.copy-btn {
+  float: right;
+  margin-bottom: 20px;
+}

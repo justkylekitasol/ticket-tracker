@@ -15,10 +15,10 @@ const Navbar = () => {
                 <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item mr-3">
-                <NavLink className="nav-link" to="/table">Daily Tracker</NavLink>
+                <NavLink className="nav-link" to="/daily-tracker">Daily Tracker</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/form">Create Ticket</NavLink>
+                <NavLink className="nav-link" to="/add-ticket">Create Ticket</NavLink>
               </li>
             </ul>
           </div>
