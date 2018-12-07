@@ -36,7 +36,7 @@ const Daily = ({tickets, deleteTicket, USday, copyFunction, regulartickets, migr
     })
   ) : (
     <div className="text-center">
-      <h3>No Tickets</h3>
+      <h3>No Tickets for Today</h3>
     </div>
   )
 
@@ -48,7 +48,7 @@ const Daily = ({tickets, deleteTicket, USday, copyFunction, regulartickets, migr
       <div id="tableId">
         <h6>For this day, I accomplished { regulartickets } Regular Tickets and { migrations } Migrations</h6>
         <div className="table-responsive">
-          <table className="table">
+          <table className="text-center table">
             <thead>
               <tr>
                 <th>Date Completed</th>

@@ -17,13 +17,19 @@ const Navbar = () => {
               <li className="nav-item mr-3">
                 <NavLink className="nav-link" to="/daily-tracker">Daily Tracker</NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/add-ticket">Create Ticket</NavLink>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
       </nav>
+      <div class="fixed-action-btn">
+        <button id="add-btn" data-toggle="modal" data-target="#myModal">
+          <i class="material-icons">add</i>
+        </button>
+      </div> 
+    {/* <NavLink to="/add-ticket" id="add-btn"><i class="material-icons">add</i></NavLink> */}
     </div>
   )
 }

@@ -4,10 +4,13 @@ class Form extends Component {
   state = {
     start: '',
     end: '',
+    duration: '',
     theme: '',
     ticketnumber: '',
     website: '',
-    remarks: ''
+    remarks: '',
+    startdate: '',
+    enddate: ''
   }
   addZeroinhours(i) {
     if (i < 10 && i !== 0) {
@@ -23,6 +26,7 @@ class Form extends Component {
     }
     return i;
   }
+  
   startTime = () => {
     let date = new Date(),
     hour = this.addZeroinhours(date.getHours()),
@@ -30,11 +34,13 @@ class Form extends Component {
     if (hour > 12) {
       hour = hour - 12
       this.setState({
-        start: hour + ':' + minute + " PM"
+        start: hour + ':' + minute + " PM",
+        startdate: date
       })
     } else {
       this.setState({
-        start: hour + ':' + minute + " AM"
+        start: hour + ':' + minute + " AM",
+        startdate: date
       })
     }
   }
@@ -45,13 +51,28 @@ class Form extends Component {
     if (hour > 12) {
       hour = hour - 12
       this.setState({
-        end: hour + ':' + minute + " PM"
+        end: hour + ':' + minute + " PM",
+        enddate: date
       })
     } else {
       this.setState({
-        end: hour + ':' + minute + " AM"
+        end: hour + ':' + minute + " AM",
+        enddate: date
       })
     }
+    this.duration(date)
+  }
+  duration = (enddate) => {
+    let start = new Date(this.state.startdate.toLocaleString()),
+    end = new Date(enddate.toLocaleString()),
+    duration = Math.abs(end - start)/1000,
+    minutes = Math.round(duration/60),
+    hours = Math.round(minutes/60)
+    console.log(start, end)
+    
+    this.setState({
+      duration: hours + ":" + minutes + ":00"
+    })
   }
   Localday() {
     let today = new Date().getDate()
@@ -114,8 +135,8 @@ class Form extends Component {
   
   render(){
     return (
-      <div className="container mt-5">
-        <h1 className="text-center">Add Ticket</h1>
+      <div className="container">
+        {/* <h1 className="text-center">Add Ticket</h1> */}
         <form onSubmit={this.handleSubmit}>
           <div className="row text-center">
             <div className="form-group col-sm-4">
@@ -137,12 +158,12 @@ class Form extends Component {
               <input type="text" className="form-control mt-2 text-center" value={this.state.start} disabled onChange={this.handleChange}/>
             </div>
             <div className="col-sm-4">
-              <button type="button" className="btn btn-danger" onClick={this.endTime}>End Time</button>
+              <button type="button" className="btn btn-danger" disabled={!this.state.start} onClick={this.endTime}>End Time</button>
               <input type="text" className="form-control mt-2 text-center" value={this.state.end} disabled onChange={this.handleChange}/>
             </div>
             <div className="col-sm-4">
             <button type="button" className="btn btn-primary" disabled>Duration</button>
-              <p>1:00:00</p>
+              <p>{this.state.duration}</p>
             </div>
           </div>
           <div className="row text-center">
