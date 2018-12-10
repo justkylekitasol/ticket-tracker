@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Daily from './components/Daily'
+import { connect } from 'react-redux'
 import AddTicket from './components/AddTicket'
 import { BrowserRouter, Route} from 'react-router-dom'
 
@@ -106,18 +107,18 @@ class App extends Component {
           <Route exact path='/' render={()=> <Home deleteTicket={this.deleteTicket} tickets={this.state.tickets}/>}/>
           <Route path='/daily-tracker' render={()=> <Daily USday={this.state.USday} deleteTicket={this.deleteTicket} tickets={this.state.tickets} copyFunction={this.copyFunction} regulartickets={this.state.regulartickets} migrations={this.state.migrations}/>} />
           {/* <Route path='/add-ticket' render={()=> <AddTicket addTicket={this.addTicket}/>} /> */}
-          <div class="modal fade" id="myModal">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2 class="modal-title">Add Ticket</h2>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div className="modal fade" id="myModal">
+            <div className="modal-dialog modal-dialog-centered modal-lg">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h2 className="modal-title">Add Ticket</h2>
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <AddTicket addTicket={this.addTicket}/>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
                 
               </div>
@@ -128,5 +129,9 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    tickets: state.tickets
+  }
+}
+export default connect(mapStateToProps)(App)

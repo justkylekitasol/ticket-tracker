@@ -24,9 +24,9 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div class="fixed-action-btn">
+      <div className="fixed-action-btn">
         <button id="add-btn" data-toggle="modal" data-target="#myModal">
-          <i class="material-icons">add</i>
+          <i className="material-icons">add</i>
         </button>
       </div> 
     {/* <NavLink to="/add-ticket" id="add-btn"><i class="material-icons">add</i></NavLink> */}
